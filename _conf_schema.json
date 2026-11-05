@@ -1,0 +1,48 @@
+{
+  "api_key": {
+    "description": "TaoDock API key",
+    "type": "string",
+    "secret": true,
+    "hint": "Create a key at https://taodock.com/keys. AstrBot masks this value in the dashboard but stores it in the plugin configuration file.",
+    "default": ""
+  },
+  "image_model": {
+    "description": "Default image model",
+    "type": "string",
+    "hint": "Use /td_models image to list image models available to this key.",
+    "default": ""
+  },
+  "image_parameters": {
+    "description": "Image request parameters",
+    "type": "text",
+    "hint": "A JSON object merged into the image request. The plugin always sets model and prompt from the command and configuration.",
+    "default": "{}",
+    "editor_mode": true,
+    "editor_language": "json"
+  },
+  "video_model": {
+    "description": "Default video model",
+    "type": "string",
+    "hint": "Use /td_models video to list video models available to this key.",
+    "default": ""
+  },
+  "video_parameters": {
+    "description": "Video request parameters",
+    "type": "text",
+    "hint": "A JSON object merged into the video request. The plugin always sets model and prompt from the command and configuration.",
+    "default": "{}",
+    "editor_mode": true,
+    "editor_language": "json"
+  },
+  "video_wait_seconds": {
+    "description": "Maximum video wait",
+    "type": "int",
+    "hint": "Seconds to wait before returning the task ID. Set to 0 to check once without waiting.",
+    "default": 300,
+    "slider": {
+      "min": 0,
+      "max": 1800,
+      "step": 30
+    }
+  }
+}

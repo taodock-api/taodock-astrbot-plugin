@@ -1,0 +1,33 @@
+{
+  "metadata": {
+    "display_name": "TaoDock Media",
+    "short_desc": "Generate images and videos through TaoDock.",
+    "desc": "Generate images and videos in AstrBot with a TaoDock API key, and resume existing video tasks."
+  },
+  "config": {
+    "api_key": {
+      "description": "TaoDock API key",
+      "hint": "Create a key at https://taodock.com/keys. AstrBot masks this value in the dashboard but stores it in the plugin configuration file."
+    },
+    "image_model": {
+      "description": "Default image model",
+      "hint": "Use /td_models image to list image models available to this key."
+    },
+    "image_parameters": {
+      "description": "Image request parameters",
+      "hint": "A JSON object merged into the image request. The plugin always sets model and prompt from the command and configuration."
+    },
+    "video_model": {
+      "description": "Default video model",
+      "hint": "Use /td_models video to list video models available to this key."
+    },
+    "video_parameters": {
+      "description": "Video request parameters",
+      "hint": "A JSON object merged into the video request. The plugin always sets model and prompt from the command and configuration."
+    },
+    "video_wait_seconds": {
+      "description": "Maximum video wait",
+      "hint": "Seconds to wait before returning the task ID. Set to 0 to check once without waiting."
+    }
+  }
+}

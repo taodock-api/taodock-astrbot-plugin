@@ -1,0 +1,33 @@
+{
+  "metadata": {
+    "display_name": "众妙之门媒体生成",
+    "short_desc": "通过众妙之门 TaoDock 生成图片和视频。",
+    "desc": "在 AstrBot 中使用众妙之门 TaoDock API 密钥生成图片和视频，并可继续查询已有视频任务。"
+  },
+  "config": {
+    "api_key": {
+      "description": "TaoDock API 密钥",
+      "hint": "在 https://taodock.com/keys 创建密钥。AstrBot 会在管理面板中隐藏该值，但插件配置文件仍会保存它。"
+    },
+    "image_model": {
+      "description": "默认图片模型",
+      "hint": "使用 /td_models image 查询当前密钥可用的图片模型。"
+    },
+    "image_parameters": {
+      "description": "图片请求参数",
+      "hint": "填写 JSON 对象并合并到图片请求中；模型和提示词始终由命令与插件配置决定。"
+    },
+    "video_model": {
+      "description": "默认视频模型",
+      "hint": "使用 /td_models video 查询当前密钥可用的视频模型。"
+    },
+    "video_parameters": {
+      "description": "视频请求参数",
+      "hint": "填写 JSON 对象并合并到视频请求中；模型和提示词始终由命令与插件配置决定。"
+    },
+    "video_wait_seconds": {
+      "description": "视频最长等待时间",
+      "hint": "等待视频结果的秒数；设为 0 时只查询一次并立即返回任务状态。"
+    }
+  }
+}
