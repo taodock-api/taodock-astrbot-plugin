@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "display_name": "TaoDock Media",
-    "short_desc": "Generate images and videos through TaoDock.",
-    "desc": "Generate images and videos in AstrBot with a TaoDock API key, and resume existing video tasks."
+    "display_name": "TaoDock AI Image & Video",
+    "short_desc": "Generate AI images and videos through TaoDock's unified AI gateway.",
+    "desc": "Generate AI images and videos in AstrBot with one TaoDock API key, discover the models available to that key, and resume long-running video tasks."
   },
   "config": {
     "api_key": {
