@@ -1,0 +1,81 @@
+name: Validate
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.12']
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install validation tools
+        run: python -m pip install ruff pyyaml
+
+      - name: Check formatting
+        run: ruff format --check .
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Test
+        run: python -m unittest discover -s tests -v
+
+      - name: Validate plugin metadata
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import yaml
+
+          metadata = yaml.safe_load(Path('metadata.yaml').read_text(encoding='utf-8'))
+          required = {'name', 'display_name', 'desc', 'version', 'author', 'repo'}
+          missing = sorted(required - metadata.keys())
+          if missing:
+              raise SystemExit(f"metadata.yaml is missing: {', '.join(missing)}")
+          if metadata['name'] != 'astrbot_plugin_taodock':
+              raise SystemExit('metadata name must remain astrbot_plugin_taodock')
+          if metadata['repo'] != 'https://github.com/taodock-api/taodock-astrbot-plugin':
+              raise SystemExit('metadata repo must match the public GitHub repository')
+          if not Path('logo.png').is_file():
+              raise SystemExit('logo.png is required')
+          PY
+
+      - name: Check marketplace archive size
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import zipfile
+
+          excluded_parts = {'.git', '.github', '__pycache__', '.ruff_cache', '.pytest_cache', '.venv'}
+          excluded_suffixes = {'.pyc', '.pyo'}
+          archive = Path('/tmp/astrbot_plugin_taodock.zip')
+          with zipfile.ZipFile(archive, 'w', zipfile.ZIP_DEFLATED) as output:
+              for path in Path('.').rglob('*'):
+                  if not path.is_file():
+                      continue
+                  if any(part in excluded_parts for part in path.parts):
+                      continue
+                  if path.suffix in excluded_suffixes:
+                      continue
+                  output.write(path, Path('astrbot_plugin_taodock') / path)
+          size = archive.stat().st_size
+          print(f'Marketplace archive: {size / 1024:.1f} KiB')
+          if size > 16 * 1024 * 1024:
+              raise SystemExit('AstrBot Marketplace archives must be smaller than 16 MiB')
+          PY
