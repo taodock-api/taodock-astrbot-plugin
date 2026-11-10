@@ -1,8 +1,8 @@
 {
   "metadata": {
-    "display_name": "众妙之门媒体生成",
-    "short_desc": "通过众妙之门 TaoDock 生成图片和视频。",
-    "desc": "在 AstrBot 中使用众妙之门 TaoDock API 密钥生成图片和视频，并可继续查询已有视频任务。"
+    "display_name": "众妙之门 AI 图片与视频",
+    "short_desc": "通过众妙之门 TaoDock 统一 AI 网关生成图片与视频。",
+    "desc": "在 AstrBot 中使用一个众妙之门 TaoDock API 密钥生成 AI 图片和视频、发现当前密钥可用的模型，并继续查询长时间运行的视频任务。"
   },
   "config": {
     "api_key": {
